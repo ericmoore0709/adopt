@@ -22,12 +22,14 @@ def index():
 
 @app.get('/all')
 def list():
-    return render_template('pets/list.html')
+    pets: list[Pet] = Pet.query.all()
+    return render_template('pets/list.html', pets=pets)
 
 
 @app.get('/<int:id>')
 def details(id: int):
-    return render_template('pets/details.html')
+    pet: Pet = Pet.query.get(id)
+    return render_template('pets/details.html', pet=pet)
 
 
 @app.get('/new')
@@ -42,14 +44,17 @@ def processNew():
 
 @app.get('/<int:id>/edit')
 def displayEdit(id: int):
-    return render_template('pets/edit.html')
+    pet: Pet = Pet.query.get(id)
+    return render_template('pets/edit.html', pet=pet)
 
 
 @app.post('/<int:id>/edit')
 def processEdit(id: int):
+    pet: Pet = Pet.query.get(id)
     return redirect('/all')
 
 
 @app.post('/<int:id>/delete')
 def delete(id: int):
+    pet: Pet = Pet.query.get(id)
     return redirect('/all')

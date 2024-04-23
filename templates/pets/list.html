@@ -1,4 +1,16 @@
 {% extends 'layout/base.html' %}
 {% block content %}
 <h1>Pets List</h1>
+<div class="d-flex flex-wrap justify-content-between">
+    {% for pet in pets %}
+    <div class="card mx-1 my-2" style="width: 18rem;">
+        <img src={{pet.photo_url}} class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">{{pet.name}}</h5>
+            <a href={{ '/' + pet.id | string }} class="btn btn-primary">Get to know!</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<a href="/new" class="btn btn-success">Add Pet</a>
 {% endblock %}
